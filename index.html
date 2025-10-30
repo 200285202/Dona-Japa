@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dona Japa Cake's - Cardápio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;600&display=swap');
+
+    :root {
+      --primary-color: #8C1C1C;
+      --secondary-color: #C94C4C;
+      --accent-color: #FFD166;
+      --text-color: #5C3D2E;
+      --light-bg: #FFF4E1;
+      --card-bg: rgba(255, 250, 243, 0.95);
+      --shadow: 0 8px 20px rgba(140, 28, 28, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-color);
+      overflow-x: hidden;
+      background-color: var(--light-bg);
+      line-height: 1.6;
+    }
+
+    video.background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .cardapio-container {
+      max-width: 800px;
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--secondary-color);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cardapio-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .logo img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      background: var(--light-bg);
+      padding: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: var(--primary-color);
+      font-size: 2.8rem;
+      text-align: center;
+      margin: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.3rem;
+      color: var(--secondary-color);
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .categoria {
+      margin-top: 30px;
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      font-weight: 600;
+      border-bottom: 2px dashed var(--secondary-color);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item {
+      margin: 15px 0;
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .item-text {
+      flex: 1;
+    }
+
+    .preco {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      margin-left: 15px;
+    }
+
+    .btn-adicionar {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-left: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-adicionar:hover {
+      background-color: var(--primary-color);
+      transform: scale(1.05);
+    }
+
+    .promocao {
+      background: #FAD2CF;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 30px;
+      text-align: center;
+      border: 2px solid var(--secondary-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promocao::before {
+      content: '🎉';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+    }
+
+    .promocao h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: fit-content;
+      margin: 30px auto 0;
+      background-color: #25D366;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+      cursor: pointer;
+    }
+
+    .whatsapp-btn:hover {
+      background-color: #1ebe5d;
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5);
+    }
+
+    .rodape {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      margin-top: 25px;
+      font-style: italic;
+      padding-top: 20px;
+      border-top: 1px solid rgba(140, 28, 28, 0.2);
+    }
+
+    /* Botão flutuante para WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #1ebe5d;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+
+    /* Carrinho de Compras */
+    .carrinho-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .carrinho-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .carrinho-btn:hover {
+      background-color: var(--secondary-color);
+      transform: scale(1.1);
+    }
+
+    .carrinho-contador {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .carrinho-modal {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 380px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .carrinho-modal.aberto {
+      right: 0;
+    }
+
+    .carrinho-header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .carrinho-header h3 {
+      font-size: 1.4rem;
+      margin: 0;
+    }
+
+    .fechar-carrinho {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .carrinho-itens {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .carrinho-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .carrinho-item-info {
+      flex: 1;
+    }
+
+    .carrinho-item-nome {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .carrinho-item-preco {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .carrinho-item-controles {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .carrinho-item-quantidade {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-quantidade {
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-quantidade:hover {
+      background-color: #e0e0e0;
+    }
+
+    .quantidade-numero {
+      font-weight: 600;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remover-item {
+      color: #ff6b6b;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+    }
+
+    .remover-item:hover {
+      color: #ff5252;
+    }
+
+    .carrinho-vazio {
+      text-align: center;
+      padding: 40px 20px;
+      color: #888;
+    }
+
+    .carrinho-total {
+      padding: 20px;
+      border-top: 2px dashed var(--secondary-color);
+      background-color: #f9f9f9;
+    }
+
+    .carrinho-total-valor {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .carrinho-acoes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-finalizar {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-finalizar:hover {
+      background-color: var(--primary-color);
+    }
+
+    .btn-limpar {
+      background-color: #f0f0f0;
+      color: var(--text-color);
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-limpar:hover {
+      background-color: #e0e0e0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .overlay.ativo {
+      display: block;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .cardapio-container {
+        margin: 20px;
+        padding: 25px;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .preco, .btn-adicionar {
+        align-self: flex-end;
+        margin-left: 0;
+      }
+      
+      .carrinho-modal {
+        width: 100%;
+        right: -100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cardapio-container {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .logo img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .categoria {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Efeito de brilho nos títulos */
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shine::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 20%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(30deg);
+      transition: all 0.6s;
+    }
+
+    .shine:hover::after {
+      left: 120%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VÍDEO DE FUNDO -->
+  <video autoplay muted loop playsinline class="background">
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+
+  <!-- Overlay para fechar o carrinho -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Carrinho de Compras -->
+  <div class="carrinho-container">
+    <button class="carrinho-btn" id="abrir-carrinho">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="carrinho-contador" id="carrinho-contador">0</span>
+    </button>
+  </div>
+
+  <div class="carrinho-modal" id="carrinho-modal">
+    <div class="carrinho-header">
+      <h3>Meu Carrinho</h3>
+      <button class="fechar-carrinho" id="fechar-carrinho">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="carrinho-itens" id="carrinho-itens">
+      <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+      <div class="carrinho-vazio" id="carrinho-vazio">
+        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+        <p>Seu carrinho está vazio</p>
+      </div>
+    </div>
+    <div class="carrinho-total">
+      <div class="carrinho-total-valor">
+        <span>Total:</span>
+        <span id="carrinho-total">R$ 0,00</span>
+      </div>
+      <div class="carrinho-acoes">
+        <button class="btn-finalizar" id="finalizar-pedido">
+          <i class="fab fa-whatsapp"></i> Finalizar Pedido
+        </button>
+        <button class="btn-limpar" id="limpar-carrinho">
+          <i class="fas fa-trash"></i> Limpar Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cardapio-container">
+    <div class="logo">
+      <img src="imagem_2025-10-30_183143814.png" alt="Logo Dona Japa Cake's">
+    </div>
+    <h1 class="shine">Dona Japa Cake's</h1>
+    <h2>Confeitaria Artesanal</h2>
+
+    <div class="categoria"><i class="fas fa-cookie-bite"></i> Brownies Recheados</div>
+    <div class="item" data-id="1" data-nome="Brigadeiro de Ninho com Nutella" data-preco="12">
+      <div class="item-text">Brigadeiro de Ninho com Nutella</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="2" data-nome="Brigadeiro de Chocolate Belga" data-preco="12">
+      <div class="item-text">Brigadeiro de Chocolate Belga</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="3" data-nome="Brigadeiro de Oreo" data-preco="12">
+      <div class="item-text">Brigadeiro de Oreo</div>
+      <span class="preco">R$</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="4" data-nome="Nutella" data-preco="12">
+      <div class="item-text">Nutella</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="5" data-nome="Brigadeiro de Frutas Vermelhas" data-preco="12">
+      <div class="item-text">Brigadeiro de Frutas Vermelhas</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+
+    <div class="categoria"><i class="fas fa-cookie"></i> Cookies GG Recheados</div>
+    <div class="item" data-id="6" data-nome="Red Velvet c/ Brigadeiro de Ninho" data-preco="10">
+      <div class="item-text">Red Velvet c/ Brigadeiro de Ninho</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="7" data-nome="Chocolate c/ Brigadeiro de Oreo" data-preco="10">
+      <div class="item-text">Chocolate c/ Brigadeiro de Oreo</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="8" data-nome="Tradicional c/ Nutella" data-preco="12">
+      <div class="item-text">Tradicional c/ Nutella</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+
+    <div class="categoria"><i class="fas fa-glass-whiskey"></i> Copo da Felicidade P</div>
+    <div class="item" data-id="9" data-nome="Copo da Felicidade P" data-preco="15">
+      <div class="item-text">Creme Ninho, Morango, Brownie e Ganache de Chocolate</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+
+    <div class="categoria"><i class="fas fa-mortar-pestle"></i> Bolo no Pote</div>
+    <div class="item" data-id="10" data-nome="Bolo no Pote" data-preco="12">
+      <div class="item-text">Sabores Variados</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+
+    <div class="categoria"><i class="fas fa-bread-slice"></i> Salgados</div>
+    <div class="item" data-id="11" data-nome="Torta de Frango c/ Catupiry na Marmita" data-preco="13">
+      <div class="item-text">Torta de Frango c/ Catupiry na Marmita</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="12" data-nome="Empadão de Frango c/ Catupiry na Marmita" data-preco="15">
+      <div class="item-text">Empadão de Frango c/ Catupiry na Marmita</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="item" data-id="13" data-nome="Hot Dog Gourmet no Pote" data-preco="13">
+      <div class="item-text">Hot Dog Gourmet no Pote<br>
+        (Pão de Hot Dog, Salsicha, Purê de Batata, Cheddar, Catupiry e Ketchup)</div>
+      <span class="preco">R$1</span>
+      <button class="btn-adicionar">
+        <i class="fas fa-plus"></i> Adicionar
+      </button>
+    </div>
+
+    <div class="categoria"><i class="fas fa-utensils"></i> Produção Diária</div>
+    <div class="item">
+      <div class="item-text">Tudo fresquinho, feito com amor!</div>
+    </div>
+
+    <div class="promocao">
+      <h3>Promoção Especial</h3>
+      <p>1 Cookie Red Velvet + 1 Torta na Marmita<br>
+      <strong>Por apenas R$1,99</strong></p>
+      <button class="btn-adicionar" style="margin-top: 10px;" data-id="14" data-nome="Promoção: Cookie Red Velvet + Torta na Marmita" data-preco="19.99">
+        <i class="fas fa-plus"></i> Adicionar Promoção
+      </button>
+    </div>
+
+    <button class="whatsapp-btn" id="whatsapp-btn">
+      <i class="fab fa-whatsapp"></i> Finalizar Pedido no WhatsApp
+    </button>
+
+    <div class="rodape">
+      Feito com amor e açúcar ❤️<br>
+      <small>CATDAPIO FEITO PELA LAYLA (11)948572007</small>
+    </div>
+  </div>
+
+  <!-- Botão flutuante do WhatsApp -->
+  <a href="#" class="whatsapp-float" id="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // Carrinho de compras
+    let carrinho = [];
+    const carrinhoModal = document.getElementById('carrinho-modal');
+    const overlay = document.getElementById('overlay');
+    const carrinhoItens = document.getElementById('carrinho-itens');
+    const carrinhoVazio = document.getElementById('carrinho-vazio');
+    const carrinhoTotal = document.getElementById('carrinho-total');
+    const carrinhoContador = document.getElementById('carrinho-contador');
+    const finalizarPedidoBtn = document.getElementById('finalizar-pedido');
+    const limparCarrinhoBtn = document.getElementById('limpar-carrinho');
+
+    // Abrir carrinho
+    document.getElementById('abrir-carrinho').addEventListener('click', () => {
+      carrinhoModal.classList.add('aberto');
+      overlay.classList.add('ativo');
+    });
+
+    // Fechar carrinho
+    document.getElementById('fechar-carrinho').addEventListener('click', fecharCarrinho);
+    overlay.addEventListener('click', fecharCarrinho);
+
+    function fecharCarrinho() {
+      carrinhoModal.classList.remove('aberto');
+      overlay.classList.remove('ativo');
+    }
+
+    // Adicionar item ao carrinho
+    document.querySelectorAll('.btn-adicionar').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const item = e.target.closest('.item');
+        if (!item) return;
+        
+        const id = item.dataset.id;
+        const nome = item.dataset.nome;
+        const preco = parseFloat(item.dataset.preco);
+        
+        adicionarAoCarrinho(id, nome, preco);
+        
+        // Feedback visual
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Adicionado!';
+        btn.style.backgroundColor = '#4CAF50';
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.backgroundColor = '';
+        }, 1500);
+      });
+    });
+
+    function adicionarAoCarrinho(id, nome, preco) {
+      const itemExistente = carrinho.find(item => item.id === id);
+      
+      if (itemExistente) {
+        itemExistente.quantidade += 1;
+      } else {
+        carrinho.push({
+          id,
+          nome,
+          preco,
+          quantidade: 1
+        });
+      }
+      
+      atualizarCarrinho();
+      abrirCarrinhoSeFechado();
+    }
+
+    function abrirCarrinhoSeFechado() {
+      if (!carrinhoModal.classList.contains('aberto')) {
+        carrinhoModal.classList.add('aberto');
+        overlay.classList.add('ativo');
+      }
+    }
+
+    function atualizarCarrinho() {
+      // Atualizar contador
+      const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
+      carrinhoContador.textContent = totalItens;
+      
+      // Atualizar lista de itens
+      if (carrinho.length === 0) {
+        carrinhoVazio.style.display = 'block';
+        carrinhoItens.innerHTML = '';
+        carrinhoItens.appendChild(carrinhoVazio);
+      } else {
+        carrinhoVazio.style.display = 'none';
+        carrinhoItens.innerHTML = '';
+        
+        carrinho.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'carrinho-item';
+          itemElement.innerHTML = `
+            <div class="carrinho-item-info">
+              <div class="carrinho-item-nome">${item.nome}</div>
+              <div class="carrinho-item-preco">R$ ${item.preco.toFixed(2)}</div>
+            </div>
+            <div class="carrinho-item-controles">
+              <div class="carrinho-item-quantidade">
+                <button class="btn-quantidade diminuir" data-id="${item.id}">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <span class="quantidade-numero">${item.quantidade}</span>
+                <button class="btn-quantidade aumentar" data-id="${item.id}">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <button class="remover-item" data-id="${item.id}">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          `;
+          carrinhoItens.appendChild(itemElement);
+        });
+        
+        // Adicionar event listeners para os botões de quantidade
+        document.querySelectorAll('.diminuir').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.closest('button').dataset.id;
+            alterarQuantidade(id, -1);
+          });
+        });
+        
+        document.querySelectorAll('.aumentar').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.closest('button').dataset.id;
+            alterarQuantidade(id, 1);
+          });
+        });
+        
+        document.querySelectorAll('.remover-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.closest('button').dataset.id;
+            removerDoCarrinho(id);
+          });
+        });
+      }
+      
+      // Atualizar total
+      const total = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+      carrinhoTotal.textContent = `R$ ${total.toFixed(2)}`;
+    }
+
+    function alterarQuantidade(id, mudanca) {
+      const item = carrinho.find(item => item.id === id);
+      
+      if (item) {
+        item.quantidade += mudanca;
+        
+        if (item.quantidade <= 0) {
+          removerDoCarrinho(id);
+        } else {
+          atualizarCarrinho();
+        }
+      }
+    }
+
+    function removerDoCarrinho(id) {
+      carrinho = carrinho.filter(item => item.id !== id);
+      atualizarCarrinho();
+    }
+
+    // Limpar carrinho
+    limparCarrinhoBtn.addEventListener('click', () => {
+      if (carrinho.length > 0) {
+        if (confirm('Tem certeza que deseja limpar o carrinho?')) {
+          carrinho = [];
+          atualizarCarrinho();
+        }
+      }
+    });
+
+    // Finalizar pedido
+    finalizarPedidoBtn.addEventListener('click', finalizarPedido);
+    document.getElementById('whatsapp-btn').addEventListener('click', finalizarPedido);
+    document.getElementById('whatsapp-float').addEventListener('click', (e) => {
+      e.preventDefault();
+      finalizarPedido();
+    });
+
+    function finalizarPedido() {
+      if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio! Adicione alguns itens antes de finalizar o pedido.');
+        return;
+      }
+      
+      // Formatar mensagem para o WhatsApp
+      let mensagem = 'Olá! Gostaria de fazer um pedido na Dona Japa Cake\'s! 🍰%0A%0A';
+      
+      carrinho.forEach(item => {
+        mensagem += `• ${item.nome} - ${item.quantidade}x - R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
+      });
+      
+      const total = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+      mensagem += `%0ATotal: R$ ${total.toFixed(2)}%0A%0AObrigado! 😊`;
+      
+      // Abrir WhatsApp
+      const telefone = '5599999999999'; // Substitua pelo número correto
+      const url = `https://wa.me/${telefone}?text=${mensagem}`;
+      window.open(url, '_blank');
+    }
+
+    // Inicializar carrinho
+    atualizarCarrinho();
+  </script>
+</body>
+</html>
